@@ -37,6 +37,7 @@ class Foreman::Engine
     @processes = []
     @running   = {}
     @readers   = {}
+    @last_signal = ""
 
     # Self-pipe for deferred signal-handling (ala djb: http://cr.yp.to/docs/selfpipe.html)
     reader, writer       = create_pipe
@@ -96,6 +97,7 @@ class Foreman::Engine
   # @param [Symbol] sig  the name of the signal to be handled
   #
   def handle_signal(sig)
+    @last_signal sig
     case sig
     when :TERM
       handle_term_signal
@@ -413,6 +415,7 @@ private
   end
 
   def terminate_gracefully
+    return if @last_signal == :HUP
     return if @terminating
     restore_default_signal_handlers
     @terminating = true
