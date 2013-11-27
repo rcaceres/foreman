@@ -97,7 +97,7 @@ class Foreman::Engine
   # @param [Symbol] sig  the name of the signal to be handled
   #
   def handle_signal(sig)
-    @last_signal sig
+    @last_signal = sig
     case sig
     when :TERM
       handle_term_signal
