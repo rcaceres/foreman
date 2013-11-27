@@ -34,7 +34,7 @@ class Foreman::CLI < Thor
   end
 
   def start(process=nil)
-    require_posix_spawn_for_ruby_18!
+    #require_posix_spawn_for_ruby_18!
     check_procfile!
     load_environment!
     engine.load_procfile(procfile)

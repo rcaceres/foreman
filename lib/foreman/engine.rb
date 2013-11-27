@@ -126,7 +126,8 @@ class Foreman::Engine
   #
   def handle_hangup
     puts "SIGHUP received"
-    terminate_gracefully
+    #terminate_gracefully
+    kill_children "SIGHUP"
   end
 
   # Register a process to be run by this +Engine+
